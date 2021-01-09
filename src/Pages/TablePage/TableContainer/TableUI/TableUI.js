@@ -30,7 +30,7 @@ const columns = [
 
 
 function TableUI({sortedServerData}) {
-    //console.log('TableUI', sortedServerData)
+
 
 
     const data = sortedServerData ?
@@ -43,12 +43,11 @@ function TableUI({sortedServerData}) {
                 name: country?.name,
                 flag: country?.flag,
                 ...country,
-                //description: 'My name is John Brown, I am 32 years old, living in New York No. 1 Lake Park.',
             }
         })
     ]
     : []
-    //console.log("data", data)
+
 
     return (
             sortedServerData ?
@@ -59,14 +58,9 @@ function TableUI({sortedServerData}) {
                            pagination={false}
                            expandable={{
                                expandedRowRender: record => {
-                                   //console.log('Object.entries(record)', Object.entries(record))
-
-
 
                                    return (
                                        <ul style={{margin: 0, }} key={Math.random() + 'ul'}>
-                                           {/*{record.description}*/}
-                                           {console.log('record', record)}
 
                                            {
                                                Object.entries(record)
@@ -93,24 +87,13 @@ function TableUI({sortedServerData}) {
                                                                    .replace(/]|[[]/g, '')
                                                                    .replace(/}/g, '')
                                                                    .replace(/{/g, '')
+                                                                   .replace(/"/g, '')
                                                                || 'Нет данных'
                                                            }
                                                        </span>
                                                    </li>
                                                })
                                                }
-
-
-
-                                           {/*{*/}
-                                           {/*    Object.entries(record).map(el => {*/}
-                                           {/*        return (*/}
-                                           {/*            <li key={Math.random}>*/}
-                                           {/*                 <strong>{el[0]}</strong>:&nbsp;{el[1]}*/}
-                                           {/*            </li>*/}
-                                           {/*        )*/}
-                                           {/*    })*/}
-                                           {/*}*/}
 
                                        </ul>
                                    )
