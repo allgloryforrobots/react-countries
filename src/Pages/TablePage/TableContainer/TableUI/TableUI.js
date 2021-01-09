@@ -4,8 +4,20 @@ import {Spin, Table} from "antd";
 
 
 const columns = [
-    { title: 'Название страны', dataIndex: 'name' },
-    { title: 'Флаг', dataIndex: 'flag' },
+    { title: 'Название страны', dataIndex: 'name', key: 'name' },
+    {
+        title: 'Флаг',
+        dataIndex: 'flag',
+        key: 'flag',
+        render: (text, record) => {
+            return (
+                <img src={record.flag}
+                     style={{width: 50}}
+                     alt=""/>
+            )
+        },
+    },
+
 
     {
         title: 'Избранное',
@@ -17,27 +29,26 @@ const columns = [
 
 
 
-
-
-
 function TableUI({sortedServerData}) {
-    console.log('TableUI', sortedServerData)
+    //console.log('TableUI', sortedServerData)
+
 
     const data = sortedServerData ?
         [
             ...sortedServerData.map((country, index) => {
+
+
             return {
                 key: index,
                 name: country?.name,
                 flag: country?.flag,
-                description: 'My name is John Brown, I am 32 years old, living in New York No. 1 Lake Park.',
+                ...country,
+                //description: 'My name is John Brown, I am 32 years old, living in New York No. 1 Lake Park.',
             }
         })
     ]
     : []
-
-
-
+    //console.log("data", data)
 
     return (
             sortedServerData ?
@@ -47,7 +58,44 @@ function TableUI({sortedServerData}) {
                            dataSource={data}
                            pagination={false}
                            expandable={{
-                               expandedRowRender: record => <p style={{margin: 0}}>{record.description}</p>,
+                               expandedRowRender: record => {
+                                   //console.log('Object.entries(record)', Object.entries(record))
+
+
+
+                                   return (
+                                       <ul style={{margin: 0, }} key={Math.random() + 'ul'}>
+                                           {/*{record.description}*/}
+
+
+                                           {
+                                               Object.entries(record).map(el => {
+                                                   return <li
+                                                       style={{
+                                                           listStyleType: 'none'
+                                                       }}
+                                                       key={Math.random() + 'li'}
+                                                   >
+                                                       <strong>{el[0]}</strong>:&nbsp;<span>{el[1].toString()}</span>
+                                                   </li>
+                                               })
+                                               }
+                                           }
+
+
+                                           {/*{*/}
+                                           {/*    Object.entries(record).map(el => {*/}
+                                           {/*        return (*/}
+                                           {/*            <li key={Math.random}>*/}
+                                           {/*                 <strong>{el[0]}</strong>:&nbsp;{el[1]}*/}
+                                           {/*            </li>*/}
+                                           {/*        )*/}
+                                           {/*    })*/}
+                                           {/*}*/}
+
+                                       </ul>
+                                   )
+                               },
                                rowExpandable: record => record.name !== 'Not Expandable',
                            }}
                            size="small"/>
