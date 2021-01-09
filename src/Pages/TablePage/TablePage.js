@@ -1,7 +1,7 @@
 import React from 'react'
 import './TablePage.css'
 import {Layout, Tabs} from "antd"
-import TableWrapper from "./TableWrapper/TableWrapper";
+import TableWrapper from "./TableContainer/TableContainer";
 const {Content} = Layout
 const { TabPane } = Tabs
 
