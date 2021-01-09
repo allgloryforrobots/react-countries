@@ -1,46 +1,46 @@
 import { Table } from 'antd';
+import React from "react";
 
 const columns = [
+    { title: 'Название страны', dataIndex: 'name' },
+    { title: 'Флаг', dataIndex: 'flag' },
+
     {
-        title: 'Name',
-        dataIndex: 'name',
+        title: 'Избранное',
+        dataIndex: '',
+        key: 'x',
+        render: () => <a>Добавить</a>,
     },
-    {
-        title: 'Age',
-        dataIndex: 'age',
-    },
-    {
-        title: 'Address',
-        dataIndex: 'address',
-    },
-];
+]
+
 const data = [
     {
-        key: '1',
-        name: 'John Brown',
-        age: 32,
-        address: 'New York No. 1 Lake Park',
+        key: 1,
+        name: 'Россия',
+        flag: 1,
+        description: 'My name is John Brown, I am 32 years old, living in New York No. 1 Lake Park.',
     },
-    {
-        key: '2',
-        name: 'Jim Green',
-        age: 42,
-        address: 'London No. 1 Lake Park',
-    },
-    {
-        key: '3',
-        name: 'Joe Black',
-        age: 32,
-        address: 'Sidney No. 1 Lake Park',
-    },
-];
+]
 
-ReactDOM.render(
-    <div>
-        <h4>Middle size table</h4>
-        <Table columns={columns} dataSource={data} size="middle" />
-        <h4>Small size table</h4>
-        <Table columns={columns} dataSource={data} size="small" />
-    </div>,
-    mountNode,
-);
+const TableWrapper = () => {
+
+
+    return (
+        <div>
+            <h4>Small size table</h4>
+            <Table columns={columns}
+                   dataSource={data}
+                   pagination={false}
+                   expandable={{
+                       expandedRowRender: record => <p style={{ margin: 0 }}>{record.description}</p>,
+                       rowExpandable: record => record.name !== 'Not Expandable',
+                   }}
+                   size="small" />
+        </div>
+
+    )
+}
+
+export default TableWrapper
+
+

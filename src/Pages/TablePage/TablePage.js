@@ -1,6 +1,7 @@
 import React from 'react'
 import './TablePage.css'
 import {Layout, Tabs} from "antd"
+import TableWrapper from "./TableWrapper/TableWrapper";
 const {Content} = Layout
 const { TabPane } = Tabs
 
@@ -15,17 +16,21 @@ function TablePage() {
 
         <Content className="content">
 
-            <Tabs defaultActiveKey="1" onChange={callback}>
-                <TabPane tab="1" key="1">
-                    Content of Tab Pane 1
-                </TabPane>
-                <TabPane tab="2" key="2">
-                    Content of Tab Pane 2
-                </TabPane>
-                <TabPane tab="3" key="3">
-                    Content of Tab Pane 3
-                </TabPane>
-            </Tabs>
+            <div className="tabs__wrapper">
+
+                <Tabs defaultActiveKey="1" onChange={callback}>
+
+                    <TabPane tab="1" key="1">
+                        <TableWrapper/>
+                    </TabPane>
+                    <TabPane tab="2" key="2">
+                        <TableWrapper/>
+                    </TabPane>
+
+                </Tabs>
+
+            </div>
+
 
 
         </Content>

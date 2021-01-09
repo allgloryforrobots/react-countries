@@ -4,3 +4,7 @@
     min-height: 280px;
     background: #fff;
 }
+.tabs__wrapper {
+    margin: 0 auto;
+    max-width: 600px;
+}

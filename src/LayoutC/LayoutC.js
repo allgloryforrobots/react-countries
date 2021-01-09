@@ -1,17 +1,19 @@
-import React from 'react';
+import React from 'react'
+import {Layout} from 'antd'
+import SwitchWrapper from "./SwitchWrapper";
+import HeaderMenu from "./HeaderMenu";
 
-function Layout() {
 
-
-
+function LayoutC() {
 
     return (
-        <div>
-            
+        <Layout>
+            <HeaderMenu/>
 
+            <SwitchWrapper/>
 
-        </div>
-    );
+        </Layout>
+    )
 }
 
-export default Layout;
+export default LayoutC;
