@@ -66,21 +66,40 @@ function TableUI({sortedServerData}) {
                                    return (
                                        <ul style={{margin: 0, }} key={Math.random() + 'ul'}>
                                            {/*{record.description}*/}
-
+                                           {console.log('record', record)}
 
                                            {
-                                               Object.entries(record).map(el => {
+                                               Object.entries(record)
+                                                   .filter(el =>
+                                                       el[0] !== 'key'
+                                                       && el[0] !==  'regionalBlocs'
+                                                       && el[0] !==  'flag')
+                                                   .map(el => {
                                                    return <li
                                                        style={{
                                                            listStyleType: 'none'
                                                        }}
                                                        key={Math.random() + 'li'}
                                                    >
-                                                       <strong>{el[0]}</strong>:&nbsp;<span>{el[1].toString()}</span>
+                                                       <strong>
+                                                           {
+                                                               el[0]
+                                                           }
+                                                       </strong>
+                                                       :&nbsp;
+                                                       <span>
+                                                           {
+                                                               JSON.stringify(el[1], null, 2)
+                                                                   .replace(/]|[[]/g, '')
+                                                                   .replace(/}/g, '')
+                                                                   .replace(/{/g, '')
+                                                               || 'Нет данных'
+                                                           }
+                                                       </span>
                                                    </li>
                                                })
                                                }
-                                           }
+
 
 
                                            {/*{*/}
