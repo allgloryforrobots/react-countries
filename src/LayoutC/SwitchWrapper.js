@@ -1,7 +1,7 @@
 import React from 'react'
 import {Route, Switch} from "react-router-dom"
 import TablePage from "../Pages/TablePage/TablePage";
-import IconsPage from "../Pages/IconsPage/IconsPage";
+
 
 function SwitchWrapper() {
     return (
@@ -12,10 +12,6 @@ function SwitchWrapper() {
 
             </Route>
 
-            <Route path="/icons">
-                <IconsPage/>
-
-            </Route>
 
 
         </Switch>

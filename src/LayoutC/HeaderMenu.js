@@ -1,22 +1,28 @@
 import React from 'react'
 import {Layout, Menu} from "antd"
-import {Link} from "react-router-dom";
+import {connect} from "react-redux";
+import {setVariant} from "../redux/local-reducer";
 const {Header} = Layout
 
-function HeaderMenu() {
+function HeaderMenu({setVariant}) {
+
     return (
         <Header>
-            <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['tables']}>
-                <Menu.Item key="tables">
-                    <Link to="/">Таблицы</Link>
+            <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['search']}>
+                <Menu.Item
+                    onClick={() => setVariant("search")}
+                    key="search">
+                   Поиск
                 </Menu.Item>
 
-                <Menu.Item key="icons">
-                    <Link to="/icons">Иконки</Link>
+                <Menu.Item
+                    onClick={() => setVariant("izbr")}
+                    key="izbr">
+                   Избранное
                 </Menu.Item>
             </Menu>
         </Header>
     );
 }
 
-export default HeaderMenu;
+export default connect (null, {setVariant}) (HeaderMenu)

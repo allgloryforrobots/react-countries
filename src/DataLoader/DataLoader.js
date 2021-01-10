@@ -1,12 +1,14 @@
 import React, {Component} from 'react'
 import {connect} from "react-redux"
 import {getServerDataThunk} from "../redux/server-reducer"
+import {getLocalsThunk} from "../redux/local-reducer";
 
 class DataLoader extends Component {
 
     componentDidMount() {
-        const {getServerDataThunk} = this.props
+        const {getServerDataThunk, getLocalsThunk} = this.props
         getServerDataThunk()
+        getLocalsThunk()
     }
 
     render() {
@@ -20,4 +22,4 @@ class DataLoader extends Component {
 }
 
 
-export default connect (null, {getServerDataThunk}) (DataLoader)
+export default connect (null, {getServerDataThunk, getLocalsThunk}) (DataLoader)

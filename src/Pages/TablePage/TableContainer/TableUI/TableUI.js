@@ -1,36 +1,53 @@
 import React from 'react'
-import {Spin, Table} from "antd";
-import {connect} from "react-redux";
+import {Button, Spin, Table} from "antd"
+import {connect} from "react-redux"
+import {getLocalsThunk, tableRerenderAction} from "../../../../redux/local-reducer"
 
 
+function TableUI({sortedServerData, page, pageResults, tableRerenderAction, getLocalsThunk}) {
 
-const columns = [
-    { title: 'Название страны', dataIndex: 'name', key: 'name' },
-    {
-        title: 'Флаг',
-        dataIndex: 'flag',
-        key: 'flag',
-        render: (text, record) => {
-            return (
-                <img src={record.flag}
-                     style={{width: 50}}
-                     alt=""/>
-            )
+    const columns = [
+        { title: 'Название страны', dataIndex: 'name', key: 'name' },
+        {
+            title: 'Флаг',
+            dataIndex: 'flag',
+            key: 'flag',
+            render: (text, record) => {
+                return (
+                    <img src={record.flag}
+                         style={{width: 50}}
+                         alt=""/>
+                )
+            },
         },
-    },
 
 
-    {
-        title: 'Избранное',
-        dataIndex: '',
-        key: 'x',
-        render: () => <a href="#">Добавить</a>,
-    },
-]
+        {
+            title: 'Избранное',
+            dataIndex: 'myList',
+            key: 'myList',
+            render: (text, record) => {
+                let countryId = record.name
+                let isInStorage = localStorage.getItem([countryId].toString())
+                return (
+                    <Button
+                        onClick={() => {
+                            if (isInStorage) {
+                                localStorage.removeItem([countryId].toString())
 
-
-
-function TableUI({sortedServerData, page, pageResults}) {
+                            } else {
+                                localStorage.setItem([countryId].toString(), countryId)
+                            }
+                            getLocalsThunk()
+                            tableRerenderAction()
+                        }}
+                        type="link">
+                        {isInStorage ? 'Удалить' : 'Добавить'}
+                    </Button>
+                )
+            }
+        },
+    ]
 
 
     const countriesPortion = sortedServerData?.slice(pageResults*(page-1), pageResults*page) || null
@@ -111,8 +128,9 @@ const mapStateToProps = (state) => {
     return {
         sortedServerData: state.serverReducer.sortedServerData,
         page: state.serverReducer.page,
-        pageResults: state.serverReducer.pageResults
+        pageResults: state.serverReducer.pageResults,
+        tableRerender: state.localReducer.tableRerender
     }
 }
 
-export default connect (mapStateToProps) (TableUI)
+export default connect (mapStateToProps, {tableRerenderAction, getLocalsThunk}) (TableUI)
