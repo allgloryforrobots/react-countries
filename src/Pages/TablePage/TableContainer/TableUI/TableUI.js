@@ -1,5 +1,6 @@
 import React from 'react'
 import {Spin, Table} from "antd";
+import {connect} from "react-redux";
 
 
 
@@ -29,13 +30,14 @@ const columns = [
 
 
 
-function TableUI({sortedServerData}) {
+function TableUI({sortedServerData, page, pageResults}) {
 
 
+    const countriesPortion = sortedServerData?.slice(pageResults*(page-1), pageResults*page) || null
 
-    const data = sortedServerData ?
+    const data = countriesPortion ?
         [
-            ...sortedServerData.map((country, index) => {
+            ...countriesPortion.map((country, index) => {
 
 
             return {
@@ -50,9 +52,8 @@ function TableUI({sortedServerData}) {
 
 
     return (
-            sortedServerData ?
+        countriesPortion ?
                 <div>
-                    <h4>Small size table</h4>
                     <Table columns={columns}
                            dataSource={data}
                            pagination={false}
@@ -106,4 +107,12 @@ function TableUI({sortedServerData}) {
     )
 }
 
-export default TableUI
+const mapStateToProps = (state) => {
+    return {
+        sortedServerData: state.serverReducer.sortedServerData,
+        page: state.serverReducer.page,
+        pageResults: state.serverReducer.pageResults
+    }
+}
+
+export default connect (mapStateToProps) (TableUI)

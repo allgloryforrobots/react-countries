@@ -5,8 +5,8 @@ const instance = axios.create({
 })
 
 
-export async function readServerDataDAL() {
+export async function readServerDataDAL(params = 'all') {
 
-    return await instance.get('all')
+    return await instance.get(params)
 
 }
