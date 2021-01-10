@@ -63,8 +63,8 @@ const mapStateToProps = (state) => {
         count: state.serverReducer.count,
         page: state.serverReducer.page,
         noData: state.serverReducer.noData,
-        locals: state.localReducer.locals,
-        variant: state.localReducer.variant,
+        locals: state.serverReducer.locals,
+        variant: state.serverReducer.variant,
     }
 }
 

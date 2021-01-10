@@ -1,10 +1,13 @@
 import React from 'react'
 import {Button, Spin, Table} from "antd"
 import {connect} from "react-redux"
-import {getLocalsThunk, tableRerenderAction} from "../../../../redux/local-reducer"
+
+import {getLocalsThunk, setIzbrThunk, setServerData, tableRerenderAction} from "../../../../redux/server-reducer";
 
 
-function TableUI({sortedServerData, page, pageResults, tableRerenderAction, getLocalsThunk}) {
+function TableUI({sortedServerData, page, pageResults, variant,
+                     tableRerenderAction, setIzbrThunk}) {
+
 
     const columns = [
         { title: 'Название страны', dataIndex: 'name', key: 'name' },
@@ -34,12 +37,17 @@ function TableUI({sortedServerData, page, pageResults, tableRerenderAction, getL
                         onClick={() => {
                             if (isInStorage) {
                                 localStorage.removeItem([countryId].toString())
+                                if (variant === 'izbr') {
+                                    setIzbrThunk()
+                                }
 
                             } else {
                                 localStorage.setItem([countryId].toString(), countryId)
                             }
-                            getLocalsThunk()
+
+
                             tableRerenderAction()
+
                         }}
                         type="link">
                         {isInStorage ? 'Удалить' : 'Добавить'}
@@ -129,8 +137,10 @@ const mapStateToProps = (state) => {
         sortedServerData: state.serverReducer.sortedServerData,
         page: state.serverReducer.page,
         pageResults: state.serverReducer.pageResults,
-        tableRerender: state.localReducer.tableRerender
+        tableRerender: state.serverReducer.tableRerender,
+        locals: state.serverReducer.locals,
+        variant: state.serverReducer.variant,
     }
 }
 
-export default connect (mapStateToProps, {tableRerenderAction, getLocalsThunk}) (TableUI)
+export default connect (mapStateToProps, {tableRerenderAction, getLocalsThunk, setServerData, setIzbrThunk}) (TableUI)

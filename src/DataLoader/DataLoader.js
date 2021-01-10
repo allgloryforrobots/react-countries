@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from "react-redux"
-import {getServerDataThunk} from "../redux/server-reducer"
-import {getLocalsThunk} from "../redux/local-reducer";
+import {getLocalsThunk, getServerDataThunk} from "../redux/server-reducer"
+
 
 class DataLoader extends Component {
 
