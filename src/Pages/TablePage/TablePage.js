@@ -1,6 +1,6 @@
 import React from 'react'
 import './TablePage.css'
-import {Layout, Spin, Tabs} from "antd"
+import {Alert, Layout, Spin, Tabs} from "antd"
 import {connect} from "react-redux";
 import {setPage} from "../../redux/server-reducer";
 import Search from "./Search/Search";
@@ -47,7 +47,7 @@ function TablePage({setPage, count, page, noData, variant}) {
                                 )
                             }
                         </Tabs>
-                        : <Spin/>
+                        : variant === "izbr" ? <Alert message="Добавьте страну!" type="info" /> : <Spin/>
                 }
 
 
