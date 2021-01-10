@@ -50,7 +50,7 @@ export const serverReducer = (state = initialState, action) => {
     }
 }
 
-const setServerData = (sortedServerData) => ({ type: SET_SERVER_DATA,  sortedServerData})
+export const setServerData = (sortedServerData) => ({ type: SET_SERVER_DATA,  sortedServerData})
 export const setPage = (page) => ({ type: SET_PAGE,  page})
 export const setCount = (count) => ({ type: SET_COUNT,  count})
 export const setNoData = (noData) => ({ type: SET_NO_DATA, noData})

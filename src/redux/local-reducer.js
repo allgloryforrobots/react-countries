@@ -1,3 +1,5 @@
+import {readServerDataDAL} from "../api/axios";
+
 
 const TABLE_RERENDER ='localReducer/TABLE_RERENDER'
 const SET_LOCALS ='localReducer/SET_LOCALS'
@@ -37,16 +39,23 @@ export const tableRerenderAction = () => ({type: TABLE_RERENDER})
 export const setLocals = (locals) => ({type: SET_LOCALS, locals})
 export const setVariant = (variant) => ({type: SET_VARIANT, variant})
 
-
 export const getLocalsThunk = () => async (dispatch) => {
 
-    let locals = []
+   let locals = []
 
     for (let prop in localStorage) {
         if( localStorage.hasOwnProperty( prop ) ) {
-            locals.push(localStorage[prop])
+            const awaitProp = await readServerDataDAL(`name/${prop}`)
+
+            const dataProp = awaitProp.data
+
+            let pushProp = null
+            dataProp.forEach(el => pushProp = el)
+
+            locals.push(pushProp)
         }
     }
 
     dispatch(setLocals(locals))
+
 }

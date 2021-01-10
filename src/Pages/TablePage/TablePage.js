@@ -11,7 +11,7 @@ const {Content} = Layout
 const { TabPane } = Tabs
 
 
-function TablePage({setPage, count, page, noData}) {
+function TablePage({setPage, count, page, noData, variant}) {
 
     function callback(key) {
         console.log('key', key)
@@ -27,7 +27,11 @@ function TablePage({setPage, count, page, noData}) {
     return (
         <Content className="content">
 
-            <Search/>
+            {
+                (variant === 'izbr') ? null : <Search/>
+            }
+
+
 
             <div className="tabs__wrapper">
                 {
@@ -59,6 +63,8 @@ const mapStateToProps = (state) => {
         count: state.serverReducer.count,
         page: state.serverReducer.page,
         noData: state.serverReducer.noData,
+        locals: state.localReducer.locals,
+        variant: state.localReducer.variant,
     }
 }
 
